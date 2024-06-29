@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import type { MenuProps } from "antd";
+import { Link } from 'react-router-dom'
 import {
   UserOutlined,
   InfoCircleOutlined,
@@ -9,19 +10,14 @@ import {
 
 const Sider: React.FC<{
   collapsed: true | false;
-  setRouteValue: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ collapsed, setRouteValue }) => {
+}> = ({ collapsed }) => {
   type MenuItem = Required<MenuProps>["items"][number];
 
   const items: MenuItem[] = [
-    { key: "1", icon: <UserOutlined />, label: "Users" },
-    { key: "2", icon: <InfoCircleOutlined />, label: "Information" },
-    { key: "3", icon: <MoreOutlined />, label: "More" },
+    { key: "1", icon: <UserOutlined />, label: <Link to='/'>Users</Link> },
+    { key: "2", icon: <InfoCircleOutlined />, label: <Link to='/information'>Information</Link> },
+    { key: "3", icon: <MoreOutlined />, label: <Link to='/more'>More</Link> },
   ];
-
-  const onClick: MenuProps["onClick"] = (e) => {
-    setRouteValue(typeof e.key);
-  };
 
   return (
     <>
@@ -40,7 +36,6 @@ const Sider: React.FC<{
           theme="light"
           items={items}
           className="h-full"
-          onClick={onClick}
         />
       </Layout.Sider>
     </>

@@ -16,6 +16,7 @@ export default {
       },
     },
     screens: {
+      xxxl: "1540px",
       xxl: "1440px",
       xl: "1340px",
       lg: "1280px",

@@ -15,15 +15,14 @@ import type { MenuProps } from "antd";
 //components
 import Sider from "../components/Sider";
 import UsersTable from "../components/UsersTable";
-import { UsersType } from "../types/objectTyped";
 import AddUserModal from "../components/AddUserModal";
+//type
+import { UsersType } from "../types/objectTyped";
 
 const Home: FC = () => {
   const [users, setUsers] = useState<UsersType[] | []>([]);
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [openedModal, setOpenedModal] = useState<boolean>(false);
-  //@ts-ignore
-  const [routeValue, setRouteValue] = useState<string>("");
 
   //updateOptions
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -31,32 +30,6 @@ const Home: FC = () => {
   const [updateUsername, setUpdateUsername] = useState<string | undefined>("");
   const [updatePhone, setUpdatePhone] = useState<string | undefined>("");
   const [updateEmail, setUpdateEmail] = useState<string | undefined>("");
-
-  //types
-
-  type DefaultObj = {
-    address?: {
-      city: string;
-      geo: {
-        lat: string;
-        lng: string;
-      };
-      street: string;
-      suite: string;
-      zipcode: string;
-    };
-    company?: {
-      name: string;
-      catchPhrase: string;
-      bg: string;
-    };
-    email: string;
-    id?: number;
-    name: string;
-    phone: string;
-    username: string;
-    website?: string;
-  };
 
   const handleGetAllGallery = async () => {
     const response = await Users.getAllUsers();
@@ -74,7 +47,8 @@ const Home: FC = () => {
     setUpdateModal(true);
     let oneUserInfo = users.find(
       //@ts-ignore
-      (item: DefaultObj, i: number): void | unknown => i == index
+
+      (item: UsersType, i: number): void | unknown => i == index
     );
     setUpdateName(oneUserInfo?.name);
     setUpdateUsername(oneUserInfo?.username);
@@ -98,7 +72,7 @@ const Home: FC = () => {
   return (
     <>
       <Layout className="h-svh">
-        <Sider collapsed={collapsed} setRouteValue={setRouteValue} />
+        <Sider collapsed={collapsed} />
         <Layout.Sider
           theme="light"
           trigger={null}
@@ -223,8 +197,10 @@ const Home: FC = () => {
               path="/information"
               element={
                 <>
-                  {users?.map((item: DefaultObj, i: number) => (
-                    <h1 key={i}>{item?.name}</h1>
+                  {users?.map((item: UsersType, i: number) => (
+                    <h1 key={i} className="border">
+                      {item?.name}
+                    </h1>
                   ))}
                 </>
               }
